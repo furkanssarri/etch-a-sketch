@@ -1,69 +1,85 @@
 body {
-   background-color: #212529;
-   color: #fff;
+   background-color: #f3f3f3!important;
+   /* color: #fff!important; */
 }
 
-.container {
+.header-area {
+   margin: 2% auto auto auto;
+
+}
+
+.controllers {
+   display: flex;
+   flex-direction: column;
+   justify-content:center;
+   align-items:normal;
+}
+
+@media (max-width: 768px) {
+   .controllers{
+      align-items: center!important;
+   }
+}
+
+.color-pick{
+   margin-bottom: 10px;
+}
+
+.color-pick>label{
+   vertical-align: top;
+}
+
+/* #colorpicker {
+   margin-left: 15px;
+} */
+#value{
+   display: inline-block;
+   /* margin-left: 5px; */
+}
+.canvas-wrapper {
+   display: inline-block;
+}
+
+.canvas {
    display: flex;
    justify-content: flex-start;
-   gap: 1px;
+   /* gap: 1px; */
    flex-wrap: wrap;
-   /* max-width: 960px; */
-   width: 100%;
-   margin: 0 auto;
+   max-width: 500px;
+   height: 500px;
+   margin: 3% auto;
+   background-color: #f8f8f8;
+   /* border: 1px solid #494e4c; */
+   box-shadow: 0px 0px 3px 1px #616161a7;
+}
+
+@media (max-width: 992px) {
+   .canvas{
+      max-width: 450px;
+      height: 450px;
+   }
+}
+
+@media (max-width: 600px) {
+   .canvas{
+      max-width: 400px;
+      height: 400px;
+   }
 }
 
 .grid {
-   /* background-color: turquoise; */
    box-sizing: border-box;
-   background-color: #6c757d
-      /* border: 1px solid #848484; */
-      /* height: 10px;
-   width: 10px; */
+   background-color: #fff;
+   /* margin: -1px; */
 }
 
-.btn {
-   display: inline-block;
-   font-weight: 400;
-   line-height: 1.5;
-   color: #212529;
-   text-align: center;
-   text-decoration: none;
-   vertical-align: middle;
-   cursor: pointer;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   user-select: none;
-   background-color: transparent;
-   border: 1px solid transparent;
-   padding: 0.375rem 0.75rem;
-   font-size: 1rem;
-   border-radius: 0.25rem;
-   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+.controls {
+   /* margin: 5px auto; */
 }
 
-.btn:focus,
-.btn:hover {
-   text-decoration: none;
+@media (max-width: 765px) {
+   .controls{
+      width: 50%;
+   }
 }
 
-.btn-primary {
-   color: #007bff;
-   border-color: #007bff;
-}
-
-.btn-primary:hover {
-   color: #fff;
-   background-color: #0069d9;
-   border-color: #0062cc;
-}
-
-.btn-primary:active {
-   color: #fff;
-   background-color: #0062cc;
-   border-color: #005cbf;
-}
-
-#generator {
-   margin: 5px;
-}
