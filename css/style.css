@@ -9,14 +9,14 @@ body {
    gap: 1px;
    flex-wrap: wrap;
    /* max-width: 960px; */
-   width: 100%;
+   width: 50%;
    margin: 0 auto;
 }
 
 .grid {
-   /* background-color: turquoise; */
+   /* background-color: #40e0d0; */
    box-sizing: border-box;
-   background-color: #6c757d
+   background-color: #e5e5e5
       /* border: 1px solid #848484; */
       /* height: 10px;
    width: 10px; */
