@@ -1,18 +1,25 @@
 // Constants
-const generateBtn = document.getElementById("generator");
 const container = document.querySelector(".container");
+const gridDivs = document.querySelectorAll(".grid");
+const controllers = document.querySelector(".controllers");
 
 
 // Variables
 let color = "#40e0d0";
 let mDown = false;
+let eraserMode = false;
 
 
 // Event Listeners
 document.addEventListener("mousedown", () => mDown = true);
 document.addEventListener("mouseup", () => mDown = false);
+document.addEventListener("DOMContentLoaded", createGrid(33,33));
 
-generateBtn.addEventListener("click", getUserInput);
+// generateBtn.addEventListener("click", getUserInput);
+// drawBtn.addEventListener("click", drawColor);
+// eraseBtn.addEventListener("click", manageControls);
+controllers.addEventListener("click", manageControls);
+
 
 function getUserInput() {
    let userInput = prompt("number?");
@@ -42,11 +49,32 @@ function createGrid(userInput, userInput) {
    }
 }
 
+function manageControls(e) {
+   let newColor;
+   // Create Canvas
+   if (e.target.id === "generator") {
+      getUserInput();
+   }
+   // Erase
+   if (e.target.id === "eraser") {
+      let erase = "#e5e5e5";
+      newColor = erase;
+   }
+   // Draw After Erasing
+   if (e.target.id === "draw") {
+      let previousColor = "#40e0d0";
+      newColor = previousColor;
+   }
+   // Clear - To be implemented
+   color = newColor;
+}
+
+
 function draw() {
    // IF WE WANT TO USE IT WITH MOUSEDOWN INSTEAD
    // THIS FEATURE WILL BE THE DEFAULT FOR ERASING
-   // if (mDown) {
-   //    this.style.backgroundColor = color;
-   // }
-   this.style.backgroundColor = color;
+   if (mDown) {
+      this.style.backgroundColor = color;
+   }
+   // this.style.backgroundColor = color;
 }
