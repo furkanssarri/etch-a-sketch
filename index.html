@@ -4,20 +4,26 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Etc-a-Sketch</title>
+   <title>Etch-a-Sketch</title>
+   <script src="https://kit.fontawesome.com/a4cf3a1ade.js" crossorigin="anonymous"></script>
    <link rel="stylesheet" href="css/style.css">
    <script src="js/app.js" defer></script>
 </head>
 <body>
    <h1 id="main-header">ETCH-A-SKETCH</h1>
-   <div class="controllers">
-      <button class="btn btn-primary" id="generator">Generate</button>
-      <button class="btn btn-primary" id="draw">Draw</button>
-      <button class="btn btn-primary" id="eraser">Erase</button>
-      <!-- <button class="btn btn-primary" id="clear">Clear</button> -->
-   </div>
+   
    <div class="container">
-
+      <div class="canvas"> </div>
+      <div class="controllers">
+         <input type="range" name="gridValue" value="50" min="1" max="98" step="1" id="grid-value" >
+         <p id="rangeValue"> </p>
+         <hr>
+         <button class="btn btn-primary" id="draw">Draw</button>
+         <button class="btn btn-primary" id="rainbow">Rainbow</button>
+         <button class="btn btn-primary" id="eraser">Erase</button>
+         <button class="btn btn-primary" id="clear">Clear</button>
+      </div>
+      
    </div>
 </body>
 </html>

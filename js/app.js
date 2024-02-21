@@ -1,7 +1,10 @@
 // Constants
 const container = document.querySelector(".container");
+const canvas = document.querySelector(".canvas");
 const gridDivs = document.querySelectorAll(".grid");
 const controllers = document.querySelector(".controllers");
+const rangeValue = document.querySelector("#grid-value");
+const numOfDivs = document.querySelector("#rangeValue");
 
 
 // Variables
@@ -13,7 +16,8 @@ let eraserMode = false;
 // Event Listeners
 document.addEventListener("mousedown", () => mDown = true);
 document.addEventListener("mouseup", () => mDown = false);
-document.addEventListener("DOMContentLoaded", createGrid(33,33));
+rangeValue.addEventListener("change", showValue);
+document.addEventListener("DOMContentLoaded", createGrid(50, 50));
 
 // generateBtn.addEventListener("click", getUserInput);
 // drawBtn.addEventListener("click", drawColor);
@@ -26,13 +30,20 @@ function getUserInput() {
    createGrid(userInput, userInput);
 }
 
+function setRainbow() {
+   let randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+   color = randomColor;
+   
+}
+
 
 function createGrid(userInput, userInput) {
-   while (container.firstChild) {
-      container.firstChild.remove();
+   while (canvas.firstChild) {
+      canvas.firstChild.remove();
    }
    if (userInput >= 99) {
       console.log("That takes up too much of valuable resources. Please make a feasible request.");
+      return
    } else {
       for (let i = 0; i < userInput; i++) {
          let row = document.createElement("div");
@@ -40,24 +51,36 @@ function createGrid(userInput, userInput) {
          for (let j = 0; j < userInput; j++) {
             let cell = document.createElement("div");
             cell.classList.add("grid");
-            cell.style.width = 100 / userInput + "vw";
-            cell.style.height = 100 / userInput + "vh";
+            cell.style.width = 100 / userInput + "%";
+            cell.style.height = 100 / userInput + "%";
             cell.addEventListener("mouseenter", draw);
-            container.appendChild(cell);
+            canvas.appendChild(cell);
          }
+         
+         // canvas.appendChild(row);
       }
+      numOfDivs.textContent = `${rangeValue.value} grid`;
    }
 }
 
+function showValue() {
+   let newValue = Number(this.value);
+   createGrid(newValue, newValue)
+}
+
 function manageControls(e) {
+   if (e.target.id === "grid-value") {
+      numOfDivs.textContent = `${e.target.value} grid`
+   }
    let newColor;
-   // Create Canvas
-   if (e.target.id === "generator") {
-      getUserInput();
+   // Rainbow
+   if (e.target.id === "rainbow") {
+      setRainbow();
+      return;
    }
    // Erase
    if (e.target.id === "eraser") {
-      let erase = "#e5e5e5";
+      let erase = "#fff";
       newColor = erase;
    }
    // Draw After Erasing
@@ -66,6 +89,13 @@ function manageControls(e) {
       newColor = previousColor;
    }
    // Clear - To be implemented
+   if (e.target.id === "clear") {
+      const currentDivNumber = rangeValue.value;
+      while (canvas.firstChild) {
+         canvas.firstChild.remove();
+      }
+      createGrid(currentDivNumber, currentDivNumber);
+   }
    color = newColor;
 }
 
@@ -73,8 +103,8 @@ function manageControls(e) {
 function draw() {
    // IF WE WANT TO USE IT WITH MOUSEDOWN INSTEAD
    // THIS FEATURE WILL BE THE DEFAULT FOR ERASING
-   if (mDown) {
-      this.style.backgroundColor = color;
-   }
-   // this.style.backgroundColor = color;
+   // if (mDown) {
+   //    this.style.backgroundColor = color;
+   // }
+   this.style.backgroundColor = color;
 }

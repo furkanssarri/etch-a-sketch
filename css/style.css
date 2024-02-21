@@ -1,26 +1,56 @@
 body {
-   background-color: #212529;
-   color: #fff;
+   background-color: #cdcfd1;
+   color: #2a2828;
+}
+
+#main-header {
+   text-align: center;
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: 100;
 }
 
 .container {
    display: flex;
-   justify-content: flex-start;
-   gap: 1px;
+   justify-content: center;
+   gap: 10vw;
    flex-wrap: wrap;
    /* max-width: 960px; */
    width: 100%;
    margin: 0 auto;
 }
 
-.grid {
-   /* background-color: #40e0d0; */
-   box-sizing: border-box;
-   background-color: #e5e5e5
-      /* border: 1px solid #848484; */
-      /* height: 10px;
-   width: 10px; */
+.canvas {
+   display: flex;
+   justify-content: flex-start;
+   /* gap: 1px; */
+   flex-wrap: wrap;
+   width: 500px;
+   height: 500px;
+   margin: 3%;
+   margin-left: -5vw;
+   background-color: #f8f8f8;
+   /* border: 1px solid #494e4c; */
+   box-shadow: 0px 0px 3px 1px #616161a7;
 }
+
+.grid {
+   box-sizing: border-box;
+   background-color: #fff; 
+}
+
+.controllers {
+   display: flex;
+   flex-direction: column;
+   /* align-items: center; */
+   justify-content: center;
+   width: 30%;
+}
+
+#rangeValue {
+   display: flex;
+   justify-content: center;
+}
+
 
 .btn {
    display: inline-block;
