@@ -11,13 +11,20 @@ const numOfDivs = document.querySelector("#rangeValue");
 let color = "#40e0d0";
 let mDown = false;
 let eraserMode = false;
+let rainBow = false;
+let colorMode = true;
+// For the appendActiveStatus function can probably be placed elsewhere
+// for a cleaner code, but as of right now it works like this. Perhaps
+// I would look back at this at some other time.
+let prevBtn = null;
+
 
 
 // Event Listeners
 document.addEventListener("mousedown", () => mDown = true);
 document.addEventListener("mouseup", () => mDown = false);
 rangeValue.addEventListener("change", showValue);
-document.addEventListener("DOMContentLoaded", createGrid(50, 50));
+document.addEventListener("DOMContentLoaded", createGrid(16, 16));
 
 // generateBtn.addEventListener("click", getUserInput);
 // drawBtn.addEventListener("click", drawColor);
@@ -30,11 +37,7 @@ function getUserInput() {
    createGrid(userInput, userInput);
 }
 
-function setRainbow() {
-   let randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-   color = randomColor;
-   
-}
+
 
 
 function createGrid(userInput, userInput) {
@@ -54,9 +57,11 @@ function createGrid(userInput, userInput) {
             cell.style.width = 100 / userInput + "%";
             cell.style.height = 100 / userInput + "%";
             cell.addEventListener("mouseenter", draw);
+            // cell.addEventListener("mouseleave", draw);
+            cell.addEventListener("mousedown", draw);
             canvas.appendChild(cell);
          }
-         
+
          // canvas.appendChild(row);
       }
       numOfDivs.textContent = `${rangeValue.value} grid`;
@@ -68,43 +73,84 @@ function showValue() {
    createGrid(newValue, newValue)
 }
 
+function appendActiveStatus(e) {
+
+   const isBtn = e.target.nodeName === "BUTTON";
+   if (!isBtn) {
+      return
+   }
+   e.target.classList.add("active");
+   if (prevBtn !== null) {
+      prevBtn.classList.remove("active");
+   }
+   prevBtn = e.target
+}
+
 function manageControls(e) {
    if (e.target.id === "grid-value") {
       numOfDivs.textContent = `${e.target.value} grid`
+      return
    }
    let newColor;
    // Rainbow
    if (e.target.id === "rainbow") {
-      setRainbow();
-      return;
+      rainBow = true;
+      eraserMode = false;
+      colorMode = false;
+      appendActiveStatus(e);
+      return
    }
    // Erase
    if (e.target.id === "eraser") {
-      let erase = "#fff";
-      newColor = erase;
+      colorMode = false;
+      rainBow = false;
+      eraserMode = true;
+      appendActiveStatus(e);
+      return;
    }
    // Draw After Erasing
    if (e.target.id === "draw") {
-      let previousColor = "#40e0d0";
-      newColor = previousColor;
+      colorMode = true;
+      eraserMode = false;
+      rainBow = false;
+      appendActiveStatus(e);
+      return
    }
-   // Clear - To be implemented
+   // Clear
    if (e.target.id === "clear") {
       const currentDivNumber = rangeValue.value;
       while (canvas.firstChild) {
          canvas.firstChild.remove();
       }
       createGrid(currentDivNumber, currentDivNumber);
+      appendActiveStatus(e);
+      eraserMode = false;
+      rainBow = false;
+      colorMode = false;
+      return
    }
    color = newColor;
 }
 
 
-function draw() {
+function draw(e) {
    // IF WE WANT TO USE IT WITH MOUSEDOWN INSTEAD
    // THIS FEATURE WILL BE THE DEFAULT FOR ERASING
+   if (e.type === "mouseover" && mDown === false) {
+      return
+   } else if (rainBow === true && mDown === true) {
+      let colors = [];
+      let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+      colors.push(randomColor);
+      this.style.backgroundColor = colors;
+      return
+   } else if (colorMode === true && mDown === true) {
+      this.style.backgroundColor = color;
+   } else if (eraserMode === true && mDown === true) {
+      let color = "#fff";
+      this.style.backgroundColor = color;
+   }
    // if (mDown) {
    //    this.style.backgroundColor = color;
    // }
-   this.style.backgroundColor = color;
 }
